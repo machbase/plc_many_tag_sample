@@ -3,3 +3,7 @@
 ### How to run
   - edit env.sh (Port no)
   - sh init.sh
+  - create schema with create_schema.sql
+  - make
+  - ./append
+
