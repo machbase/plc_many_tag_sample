@@ -28,7 +28,7 @@ static char          gTargetIP[16];
 static int           gPortNo=8086;
 static unsigned long gMaxData=0;
 static long gTps=0;
-static char          gTable[64]="TAG";
+static char          gTable[64]="plc";
 
 static char *gEnvVarNames[] = {
                           "TEST_MAX_ROWCNT",
@@ -243,7 +243,7 @@ void appendTps(SQLHSTMT aStmt)
         for (int K = 0; K < SPARAM_MAX_COLUMN; K++)
         {
             sParam[K + 2].mDouble = sVal[K];
-            sVal[K] += 1.0;
+            sVal[K] += 1.123412341234;
         }
 
         sRC = SQLAppendDataV2(aStmt, sParam);
