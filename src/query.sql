@@ -1,2 +1,2 @@
-select name, jval->'$.data[1023]' from tag limit 3;
-select name, json_extract(jval, '$.data[1023]') from tag limit 100;
+
+select name, time, sensor0, sensor10, sensor100, sensor1023 from plc limit 20;
