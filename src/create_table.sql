@@ -1025,4 +1025,4 @@
     sensor1021 DOUBLE,
     sensor1022 DOUBLE,
     sensor1023 DOUBLE
-);
+) tag_partition_count=1, tag_data_part_size=4194304;
