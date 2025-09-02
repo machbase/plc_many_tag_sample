@@ -246,7 +246,7 @@ void appendTps(SQLHSTMT aStmt)
              double max = 10.0;
 
              sParam[K + 2].mDouble = sVal[K];
-             sVal[K] += 1.123412341234;
+             sVal[K] += 1.123412341234 + ((double)rand() / RAND_MAX) * (max - min);
         }
 
         sRC = SQLAppendDataV2(aStmt, sParam);
