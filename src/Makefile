@@ -7,8 +7,10 @@
 include $(MACHBASE_HOME)/install/machbase_env.mk
 
 INCLUDES += $(INC_OPT)/$(MACHBASE_HOME)/include
+CC_FLAGS += -O3
+LD_FLAGS += -O3
 
-all :  append append_rand #append_realtime
+all :  append append_rand append_realtime loop
 
 append : append.o
 	$(LD_CC) $(LD_FLAGS) $(LD_OUT_OPT)$@ $< $(LIB_OPT)machbasecli$(LIB_AFT)  $(LIBDIR_OPT)$(MACHBASE_HOME)/lib $(LD_LIBS)
@@ -22,11 +24,17 @@ append_rand : append_rand.o
 append_rand.o : append_rand.c
 	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
 
-#append_realtime : append_realtime.o
-#	$(LD_CC) $(LD_FLAGS) $(LD_OUT_OPT)$@ $< $(LIB_OPT)machbasecli$(LIB_AFT)  $(LIBDIR_OPT)$(MACHBASE_HOME)/lib $(LD_LIBS)
+append_realtime : append_realtime.o
+	$(LD_CC) $(LD_FLAGS) $(LD_OUT_OPT)$@ $< $(LIB_OPT)machbasecli$(LIB_AFT)  $(LIBDIR_OPT)$(MACHBASE_HOME)/lib $(LD_LIBS)
 
-#append_realtime.o : append_realtime.c
-#	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
+append_realtime.o : append_realtime.c
+	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
+
+loop : loop.o
+	$(LD_CC) $(LD_FLAGS) $(LD_OUT_OPT)$@ $< $(LIB_OPT)machbasecli$(LIB_AFT)  $(LIBDIR_OPT)$(MACHBASE_HOME)/lib $(LD_LIBS)
+
+loop.o : loop.c
+	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
 
 clean :
-	rm -f *.o append # append_realtime
+	rm -f *.o append append_realtime append_rand loop
