@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include <sched.h>
 #include <sys/time.h>
 #include <machbase_sqlcli.h>
 #include <stdio.h>
@@ -12,7 +13,8 @@
 #include <errno.h>
 #define NSEC_PER_SEC 1000000000L
 #define PERIOD_NS    125000L  // 125 usec
-
+#define RT_PRIORITY    80
+#define AFFINITY_CPU   0
 #define SPARAM_MAX_COLUMN   1024
 
 #define ERROR_CHECK_COUNT	80000
@@ -392,6 +394,19 @@ int main()
 
     unsigned long  sCount=0;
     time_t      sStartTime, sEndTime;
+
+
+    struct sched_param sp = { .sched_priority = RT_PRIORITY };
+    if (sched_setscheduler(0, SCHED_FIFO, &sp) != 0) {
+        perror("sched_setscheduler (need root/CAP_SYS_NICE)");
+    }
+
+    cpu_set_t set;
+    CPU_ZERO(&set);
+    CPU_SET(AFFINITY_CPU, &set);
+    if (sched_setaffinity(0, sizeof(set), &set) != 0) {
+        perror("sched_setaffinity");
+    }
 
     if (SetGlobalVariables() != 0)
     {
