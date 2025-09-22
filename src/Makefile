@@ -27,7 +27,16 @@ append_rand.o : append_rand.c
 append_realtime : append_realtime.o
 	$(LD_CC) $(LD_FLAGS) $(LD_OUT_OPT)$@ $< $(LIB_OPT)machbasecli$(LIB_AFT)  $(LIBDIR_OPT)$(MACHBASE_HOME)/lib $(LD_LIBS)
 
+append_queue : append_queue.o spsc_queue.o
+	$(LD_CC) $(LD_FLAGS) $(LD_OUT_OPT)$@ $< $(LIB_OPT)machbasecli$(LIB_AFT)  $(LIBDIR_OPT)$(MACHBASE_HOME)/lib $(LD_LIBS) spsc_queue.o
+
+spsc_queue.o :spsc_queue.c
+	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
+
 append_realtime.o : append_realtime.c
+	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
+
+append_queue.o : append_queue.c
 	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
 
 loop : loop.o
@@ -37,4 +46,4 @@ loop.o : loop.c
 	$(COMPILE.cc) $(CC_FLAGS) $(INCLUDES) $(CC_OUT_OPT)$@ $<
 
 clean :
-	rm -f *.o append append_realtime append_rand loop
+	rm -f *.o append append_realtime append_rand loop append_queue
