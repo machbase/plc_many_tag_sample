@@ -5,7 +5,7 @@
 #define DOUBLES_PER_RECORD (1024+1)
 #define RECORD_SIZE (DOUBLES_PRE_RECORD * sizeof(double))
 
-#define QUEUE_SIZE  (1024)  /* 큐 크기 (2의 거듭제곱이어야 함) */
+#define QUEUE_SIZE  (4096)  /* 큐 크기 (2의 거듭제곱이어야 함) */
 #define QUEUE_MASK  (QUEUE_SIZE - 1)
 
 /* 캐시 라인 크기 */

@@ -45,7 +45,7 @@ spsc_queue_t* spsc_queue_create(size_t size) {
             free(queue);
             return NULL;
         }
-    
+    memset(queue->buffer, 0,  buffer_size);
     queue->head = 0;
     queue->tail = 0;
     queue->size = size;
